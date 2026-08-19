@@ -1,0 +1,14 @@
+# Resultados de compilar .NET
+bin/
+obj/
+
+# Dependencias de Node
+node_modules/
+
+# Configuracion local del editor
+.vs/
+.vscode/
+*.user
+
+# Configuracion con datos sensibles
+appsettings.Development.json

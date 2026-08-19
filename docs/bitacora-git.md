@@ -34,3 +34,14 @@
 
 \- \*\*Hash del commit de fusion\*\*: 53d3998
 
+
+
+## Nota sobre el historial de autores
+
+Algunos commits aparecen con variaciones del nombre de un mismo integrante
+(por ejemplo "Victor cadrenas" y "Victor Cardenas", o "Jhorman_PR" y
+"Jhorman Puerta Ramirez") debido a diferencias en la configuracion local
+de git en distintos momentos o equipos. Todos esos commits corresponden
+a la misma persona, segun se detalla en la tabla de reparto de trabajo
+mas arriba.
+

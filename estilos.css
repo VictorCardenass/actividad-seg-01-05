@@ -1,0 +1,183 @@
+/* ===== Reset y variables base ===== */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --color-negro: #0b0b0c;
+  --color-blanco: #f8f6f1;
+  --color-dorado: #c9a227;
+  --color-dorado-claro: #e8d9a0;
+  --color-texto: #1a1a1a;
+  --espaciado-base: 1rem;
+  --radio-borde: 6px;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  color: var(--color-texto);
+  line-height: 1.6;
+  background: var(--color-blanco);
+}
+
+h1, h2, h3 {
+  font-weight: 700;
+  line-height: 1.2;
+  margin-top: 0;
+}
+
+/* ===== Foco visible al navegar con teclado ===== */
+a:focus {
+  outline: 3px solid var(--color-dorado);
+  outline-offset: 2px;
+}
+
+/* ===== Header con Flexbox ===== */
+header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.2rem 1.5rem;
+  background: var(--color-negro);
+  border-bottom: 2px solid var(--color-dorado);
+}
+
+header h1 {
+  font-size: clamp(1.3rem, 3vw + 1rem, 1.8rem);
+  color: var(--color-blanco);
+  margin: 0;
+}
+
+header nav a {
+  color: var(--color-blanco);
+  text-decoration: none;
+  margin-left: 1.2rem;
+}
+
+header nav a:hover {
+  color: var(--color-dorado);
+}
+
+/* ===== Seccion hero (la primera seccion, con impacto visual) ===== */
+.hero {
+  background: var(--color-negro);
+  color: var(--color-blanco);
+  text-align: center;
+  padding: 4rem 1.5rem;
+}
+
+.hero h2 {
+  font-size: clamp(2rem, 5vw + 1rem, 3.2rem);
+  color: var(--color-blanco);
+  border-bottom: 3px solid var(--color-dorado);
+  padding-bottom: 0.6rem;
+  display: inline-block;
+  margin-bottom: 1.5rem;
+}
+
+.hero p {
+  max-width: 600px;
+  margin: 0 auto 2rem;
+  color: var(--color-dorado-claro);
+}
+
+/* ===== Boton de llamada a la accion ===== */
+.boton {
+  display: inline-block;
+  background: var(--color-dorado);
+  color: var(--color-negro);
+  text-decoration: none;
+  font-weight: 700;
+  padding: 0.85rem 2rem;
+  border-radius: var(--radio-borde);
+}
+
+.boton:hover {
+  background: var(--color-dorado-claro);
+}
+
+/* ===== Secciones generales ===== */
+main section:not(.hero) {
+  padding: 3rem 1.5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+main h2 {
+  font-size: clamp(1.5rem, 3vw + 1rem, 2.2rem);
+  color: var(--color-negro);
+  text-align: center;
+  margin-bottom: 2rem;
+  border-bottom: 3px solid var(--color-dorado);
+  padding-bottom: 0.6rem;
+  display: inline-block;
+}
+
+/* ===== Galeria de servicios: mobile-first con Grid ===== */
+.galeria {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .galeria {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.tarjeta {
+  background: #fff;
+  border: 1px solid #e5decf;
+  border-radius: var(--radio-borde);
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+.tarjeta h3 {
+  color: var(--color-negro);
+  margin-bottom: 0.6rem;
+}
+
+/* ===== Tabla de horario ===== */
+#horario table {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  border-collapse: collapse;
+}
+
+#horario caption {
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+#horario th,
+#horario td {
+  padding: 0.9rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid #e5decf;
+}
+
+#horario thead th {
+  background: var(--color-negro);
+  color: var(--color-dorado-claro);
+}
+
+/* ===== Footer ===== */
+footer {
+  background: var(--color-negro);
+  color: var(--color-blanco);
+  text-align: center;
+  padding: 2.5rem 1.5rem;
+  border-top: 2px solid var(--color-dorado);
+}
+
+footer h2 {
+  color: var(--color-blanco);
+  border-bottom-color: var(--color-dorado);
+}

@@ -2,18 +2,76 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Inicio - Barberia</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Barber club</title>
+  <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
-  <h1>Barberia Los Cabezones</h1>
-  <p>Ofrecemos los mejores servicios de barberia de la zona, con atencion personalizada y profesionales calificados.</p>
-  <p>Bienvenidos a Barberia Los Cabezones, cortes premium y masajes faciales.</p>
-  <h2>Explora nuestro sitio</h2>
-  <nav>
-    <a href="index.html">Inicio</a>
-    <a href="servicios.html">Servicios</a>
-    <a href="contacto.html">Contacto</a>
-  </nav>
-  <p>Abierto de Lunes a Sabado de 9:00 AM a 7:00 PM.</p>
+
+  <header>
+    <h1>Barber club</h1>
+    <nav>
+      <a href="#sobre">Sobre nosotros</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#horario">Horario</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="sobre" class="hero">
+      <h2>Estilo que se nota</h2>
+      <p>En Barber club ofrecemos cortes premium y masajes faciales, con atencion personalizada y profesionales calificados.</p>
+      <a class="boton" href="#contacto">Agenda tu cita</a>
+    </section>
+
+    <section id="servicios">
+      <h2>Nuestros servicios</h2>
+      <div class="galeria">
+        <article class="tarjeta">
+          <h3>Corte clasico</h3>
+          <p>Corte de cabello tradicional con acabado impecable, adaptado a tu estilo.</p>
+        </article>
+        <article class="tarjeta">
+          <h3>Afeitado premium</h3>
+          <p>Afeitado con navaja, toalla caliente y productos de calidad para un acabado perfecto.</p>
+        </article>
+        <article class="tarjeta">
+          <h3>Masaje facial</h3>
+          <p>Tratamiento relajante para el cuidado y la salud de la piel del rostro.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="horario">
+      <h2>Horario de atencion</h2>
+      <table>
+        <caption>Horario semanal</caption>
+        <thead>
+          <tr>
+            <th scope="col">Dias</th>
+            <th scope="col">Horario</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Lunes a Sabado</td>
+            <td>9:00 AM a 7:00 PM</td>
+          </tr>
+          <tr>
+            <td>Domingo</td>
+            <td>Cerrado</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <footer id="contacto">
+    <h2>Contacto</h2>
+    <p>Visitanos o escribenos para agendar tu cita.</p>
+    <p>Proyecto IF2003. Equipo 05. Semestre 2026-02.</p>
+  </footer>
+
 </body>
 </html>

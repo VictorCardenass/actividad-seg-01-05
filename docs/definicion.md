@@ -95,17 +95,29 @@ Actualmente las citas de la barbería se agendan por teléfono o WhatsApp, escri
 
 ## 12. Mockup
 
-`docs/mockup/01-login.png`: formulario centrado con correo, contraseña y botón "Ingresar".
+![Inicio de sesion](mockup/01-login.png)
 
-`docs/mockup/02-servicios.png`: tarjetas de servicio con nombre, precio, duración y un botón "Reservar".
+*Formulario centrado con correo, contraseña y botón "Ingresar".*
 
-`docs/mockup/03-nueva-reserva.png`: selector desplegable de barbero con nombres reales, un mini calendario para elegir la fecha, y franjas de hora disponibles.
+![Servicios](mockup/02-servicios.png)
 
-`docs/mockup/04-mis-reservas.png`: lista de citas del cliente con estado y botón "Cancelar" (solo en las que están confirmadas).
+*Tarjetas de servicio con nombre, precio, duración y un botón "Reservar".*
 
-`docs/mockup/05-agenda-barbero.png`: vista de la agenda del día del barbero con el nombre del cliente y el servicio de cada cita, y el botón para marcarla como completada o no asistida.
+![Nueva reserva](mockup/03-nueva-reserva.png)
 
-`docs/mockup/06-gestion-admin.png`: panel con pestañas para servicios, barberos y todas las reservas, con una tabla de ejemplo con datos reales de tres servicios.
+*Selector desplegable de barbero con nombres reales, un mini calendario para elegir la fecha, y franjas de hora disponibles.*
+
+![Mis reservas](mockup/04-mis-reservas.png)
+
+*Lista de citas del cliente con estado y botón "Cancelar" (solo en las que están confirmadas).*
+
+![Agenda del barbero](mockup/05-agenda-barbero.png)
+
+*Vista de la agenda del día del barbero con el nombre del cliente y el servicio de cada cita, y el botón para marcarla como completada o no asistida.*
+
+![Gestion de administracion](mockup/06-gestion-admin.png)
+
+*Panel con pestañas para servicios, barberos y todas las reservas, con una tabla de ejemplo con datos reales de tres servicios.*
 
 ## 13. Historias de usuario, casos de uso, restricciones y supuestos
 
@@ -129,6 +141,7 @@ Actualmente las citas de la barbería se agendan por teléfono o WhatsApp, escri
 | 2026-09-16 | El equipo revisó el borrador y decidió quitar la funcionalidad de bloqueo de horarios por parte del barbero; se ajustaron las secciones 1 a 13 y las imagenes del mockup 03 y 06 para mostrar contenido real en vez de marcadores genericos | Equipo 05 |
 | 2026-09-22 | Se completaron las referencias | Equipo 05 |
 | 2026-09-23 | Se preparo la presentacion (docs/presentacion/) con la parte no tecnica y la parte tecnica | Equipo 05 |
+| 2026-09-26 | Correcciones del profesor: se corrigio el formato de la bitacora, el enlace roto del README, y se incrustaron las imagenes del mockup dentro de este documento | Equipo 05 |
 
 ## Referencias
 

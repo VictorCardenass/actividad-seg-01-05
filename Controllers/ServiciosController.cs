@@ -14,4 +14,10 @@ public class ServiciosController : Controller
     {
         return View(catalogo.Listar());
     }
+
+    [HttpGet("catalogo")]
+    public IActionResult Catalogo()
+    {
+        return View();
+    }
 }

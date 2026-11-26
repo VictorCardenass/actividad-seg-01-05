@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo - Barber club</title>
+</head>
+
+<body>
+    <h1>Catálogo</h1>
+
+    <p id="estado">Cargando servicios...</p>
+    <ul id="lista"></ul>
+
+    <script>
+        const estado = document.getElementById("estado");
+        const lista = document.getElementById("lista");
+
+        async function cargarServicios() {
+            try {
+                const respuesta = await fetch("/api/servicios");
+
+                if (!respuesta.ok) {
+                    throw new Error("El servidor respondió " + respuesta.status);
+                }
+
+                const servicios = await respuesta.json();
+
+                if (servicios.length === 0) {
+                    estado.textContent = "Por ahora no hay servicios disponibles.";
+                    return;
+                }
+
+                estado.textContent = "";
+
+                for (const servicio of servicios) {
+                    const item = document.createElement("li");
+                    item.textContent = servicio.nombre + " - $" +
+                        servicio.precio.toLocaleString("es-CO") + " - " +
+                        servicio.duracion + " min";
+                    lista.appendChild(item);
+                }
+            } catch (error) {
+                estado.textContent = "No se pudieron cargar los servicios. Intenta de nuevo más tarde.";
+                console.error(error);
+            }
+        }
+
+        cargarServicios();
+    </script>
+</body>
+
+</html>

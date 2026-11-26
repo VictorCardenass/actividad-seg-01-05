@@ -1,0 +1,22 @@
+﻿@model List<Servicio>
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Servicios - Barber club</title>
+</head>
+
+<body>
+    <h1>Servicios</h1>
+
+    <ul>
+        @foreach (var servicio in Model)
+        {
+            <li>@servicio.Nombre - $@servicio.Precio - @servicio.Duracion min</li>
+        }
+    </ul>
+</body>
+
+</html>

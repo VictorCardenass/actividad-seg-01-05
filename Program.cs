@@ -9,6 +9,15 @@ builder.Services.AddScoped<ICatalogo, CatalogoEf>();
 
 var app = builder.Build();
 
+if (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler("/error");
+}
+
+app.UseWhen(
+    contexto => !contexto.Request.Path.StartsWithSegments("/api"),
+    ramaWeb => ramaWeb.UseStatusCodePagesWithReExecute("/error/{0}"));
+
 app.MapOpenApi();
 app.MapControllers();
 

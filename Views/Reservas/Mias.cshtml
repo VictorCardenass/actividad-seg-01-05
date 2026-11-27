@@ -1,0 +1,47 @@
+@model List<Reserva>
+@{
+    var telefono = ViewBag.Telefono as string;
+}
+
+<h1>Mis reservas</h1>
+
+<form method="get" asp-action="Mias">
+    <label for="telefono">Tu teléfono</label>
+    <input id="telefono" name="telefono" value="@telefono" required maxlength="20" />
+    <button type="submit">Buscar</button>
+</form>
+
+@if (string.IsNullOrWhiteSpace(telefono))
+{
+    <p>Escribe tu teléfono para ver tus reservas.</p>
+}
+else if (!Model.Any())
+{
+    <p>No tienes reservas todavía. <a asp-action="Nueva">Crea tu primera reserva</a>.</p>
+}
+else
+{
+    <table border="1" cellpadding="6">
+        <thead>
+            <tr>
+                <th>Fecha y hora</th>
+                <th>Servicio</th>
+                <th>Barbero</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var r in Model)
+            {
+                <tr>
+                    <td>@r.Inicio.ToString("dd/MM/yyyy HH:mm")</td>
+                    <td>@r.Servicio?.Nombre</td>
+                    <td>@r.Barbero?.Nombre</td>
+                    <td>@r.Estado</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<p><a asp-action="Nueva">Nueva reserva</a></p>

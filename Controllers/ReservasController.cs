@@ -81,4 +81,25 @@ public class ReservasController : Controller
             .Select(b => new SelectListItem(b.Nombre, b.Id.ToString()))
             .ToListAsync();
     }
+
+    [HttpGet("agenda")]
+public async Task<IActionResult> Agenda(int? barberoId, DateTime? fecha)
+{
+    var vm = new AgendaViewModel
+    {
+        BarberoId = barberoId,
+        Fecha = (fecha ?? DateTime.Today).Date
+    };
+
+    vm.Barberos = await _db.Barberos
+        .Where(b => b.Activo)
+        .OrderBy(b => b.Nombre)
+        .Select(b => new SelectListItem(b.Nombre, b.Id.ToString()))
+        .ToListAsync();
+
+    if (barberoId.HasValue)
+        vm.Reservas = await _reservas.ListarPorBarberoAsync(barberoId.Value, vm.Fecha);
+
+    return View(vm);
+}
 }

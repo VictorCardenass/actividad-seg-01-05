@@ -1,0 +1,50 @@
+@model AgendaViewModel
+
+<h1>Agenda del barbero</h1>
+
+<form method="get" asp-action="Agenda">
+    <label asp-for="BarberoId">Barbero</label>
+    <select asp-for="BarberoId" asp-items="Model.Barberos" required>
+        <option value="">-- Elige un barbero --</option>
+    </select>
+
+    <label asp-for="Fecha">Fecha</label>
+    <input asp-for="Fecha" required />
+
+    <button type="submit">Ver agenda</button>
+</form>
+
+@if (!Model.BarberoId.HasValue)
+{
+    <p>Elige un barbero y una fecha para ver su agenda.</p>
+}
+else if (!Model.Reservas.Any())
+{
+    <p>Este barbero no tiene reservas para el @Model.Fecha.ToString("dd/MM/yyyy").</p>
+}
+else
+{
+    <table border="1" cellpadding="6">
+        <thead>
+            <tr>
+                <th>Hora</th>
+                <th>Servicio</th>
+                <th>Cliente</th>
+                <th>Teléfono</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var r in Model.Reservas)
+            {
+                <tr>
+                    <td>@r.Inicio.ToString("HH:mm")</td>
+                    <td>@r.Servicio?.Nombre</td>
+                    <td>@r.NombreCliente</td>
+                    <td>@r.Telefono</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<p><a asp-action="Nueva">Nueva reserva</a></p>

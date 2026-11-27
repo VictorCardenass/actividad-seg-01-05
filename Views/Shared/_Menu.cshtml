@@ -1,7 +1,9 @@
-﻿<nav>
+<nav>
     <a class="marca" href="/servicios">Barber club</a>
     <a href="/servicios">Servicios</a>
     <a href="/catalogo">Catálogo</a>
+    <a href="/reservas/nueva">Reservar</a>
+    <a href="/reservas/mias">Mis reservas</a>
     @if (User.IsInRole("Administrador"))
     {
         <a href="/admin/servicios">Servicios (admin)</a>

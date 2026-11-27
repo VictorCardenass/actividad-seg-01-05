@@ -176,7 +176,7 @@ La documentación OpenAPI está en `/openapi/v1.json`. Las páginas `/catalogo` 
 |---|---|---|
 | Gledier Luis Ortiz Perez | Esqueleto ASP.NET, base de datos con EF Core y migración inicial, API de servicios con OpenAPI, páginas de error, API de reservas con horarios libres, crear y cancelar, página `/reservar` con `fetch` y actualización del README. COMPLETAR: despliegue en Azure. | PR #9, #10, #11, #12, #16, #21 |
 | Víctor | COMPLETAR | COMPLETAR |
-| Jhorman | COMPLETAR | COMPLETAR |
+| Jhorman Puerta Ramirez | Modelo de usuario con rol y migración, layout común con menú, pie y vistas parciales, login con cookies, contraseñas cifradas y usuarios de ejemplo, panel del administrador con CRUD de servicios protegido por rol, administración de barberos y vista de todas las reservas para el administrador. | PR #14, #15, #17, #18, #20 |
 
 ## Historial de cambios
 
@@ -202,4 +202,4 @@ En la segunda etapa, durante el desarrollo de la plataforma,usé Claude y Chatgp
 
 **[Victor Manuel Cardenas Benitez]:** Usé IA (Claude) en forma de guía y apoyo para revisar si el flujo planteado para los roles de cliente, barbero y administrador era coherente y para recibir sugerencias sobre qué aspectos podrían mejorarse. También lo utilicé como apoyo para revisar los mockups, identificar posibles elementos que faltaran y recibir recomendaciones sobre su organización. Las decisiones finales sobre el flujo, los roles, las funcionalidades y el diseño de los mockups fueron tomadas por el equipo.
 
-**Jhorman Puerta Ramirez:** Usé IA (Claude) para resolver dudas sobre el manejo de GitHub, principalmente sobre los comandos de como commit, push, pull y la sincronización de las ramas. También lo utilicé como guía para solucionar problemas que aparecieron durante el proceso de subir y actualizar los cambios en GitHub, Los cambios realizados en el proyecto y las decisiones fueron tomadas por el equipo, la IA solo se utilizó como apoyo para orientarnos en el proceso de GitHub.
+**Jhorman Puerta Ramirez:** Usé IA (Claude) para resolver dudas sobre el manejo de GitHub, principalmente sobre los comandos de como commit, push, pull y la sincronización de las ramas. También lo utilicé como guía para solucionar problemas que aparecieron durante el proceso de subir y actualizar los cambios en GitHub, durante el desarrollo de la plataforma también lo usé como guía paso a paso para construir y entender mi parte (login con roles, protección de rutas, layout con vistas parciales y panel del administrador). Me sirvió para aclarar dudas sobre cómo funcionan las cookies de sesión, el cifrado de contraseñas con PasswordHasher, los roles y las vistas parciales, para resolver unos errores que aparecieron en el menú, y para entender la lógica del código que entregué. Los cambios realizados en el proyecto y las decisiones fueron tomadas por el equipo, probé cada bloque en mi equipo, la IA fue un apoyo para orientarnos en GitHub y para entender y resolver mi parte del código.

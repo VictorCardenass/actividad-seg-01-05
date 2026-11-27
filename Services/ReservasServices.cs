@@ -31,7 +31,7 @@ public class ReservasService : IReservas
         if (!barberoOk)
             return (false, "El barbero seleccionado no está disponible.", null);
 
-        var servicioOk = await _db.Servicios.AnyAsync(s => s.Id == reserva.ServicioId);
+        var servicioOk = await _db.Servicios.AnyAsync(s => s.Id == reserva.ServicioId && s.Activo);
         if (!servicioOk)
             return (false, "El servicio seleccionado no existe.", null);
 
@@ -132,7 +132,7 @@ public async Task<(bool Ok, string? Error)> ActualizarAsync(Reserva datos)
     if (!barberoOk)
         return (false, "El barbero seleccionado no está disponible.");
 
-    var servicioOk = await _db.Servicios.AnyAsync(s => s.Id == datos.ServicioId);
+    var servicioOk = await _db.Servicios.AnyAsync(s => s.Id == datos.ServicioId && s.Activo);
     if (!servicioOk)
         return (false, "El servicio seleccionado no existe.");
 

@@ -71,7 +71,7 @@ public class ReservasController : Controller
     // Llena los desplegables de servicio y barbero
     private async Task CargarListas(ReservaNuevaViewModel vm)
     {
-        vm.Servicios = await _db.Servicios
+        vm.Servicios = await _db.Servicios.Where(s => s.Activo)
             .OrderBy(s => s.Nombre)
             .Select(s => new SelectListItem(s.Nombre, s.Id.ToString()))
             .ToListAsync();

@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Titulo"] - Barber club</title>
+    <style>
+        :root {
+            --negro: #111111;
+            --dorado: #c9a24b;
+            --crema: #f5efe0;
+        }
+
+        body {
+            margin: 0;
+            font-family: Georgia, "Times New Roman", serif;
+            background: var(--crema);
+            color: var(--negro);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background: var(--negro);
+            padding: 0 1.5rem;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            max-width: 60rem;
+            margin: 0 auto;
+            padding: 1rem 0;
+        }
+
+        nav .marca {
+            color: var(--dorado);
+            font-size: 1.4rem;
+            font-weight: bold;
+            text-decoration: none;
+            margin-right: auto;
+        }
+
+        nav a {
+            color: var(--crema);
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            color: var(--dorado);
+        }
+
+        main {
+            flex: 1;
+            width: 100%;
+            max-width: 60rem;
+            margin: 0 auto;
+            padding: 1.5rem;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            border-bottom: 3px solid var(--dorado);
+            padding-bottom: 0.5rem;
+        }
+
+        .aviso {
+            background: #fff;
+            border-left: 4px solid var(--dorado);
+            padding: 0.75rem 1rem;
+        }
+
+        footer {
+            background: var(--negro);
+            color: var(--crema);
+            text-align: center;
+            padding: 1rem;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <partial name="_Menu" />
+    </header>
+
+    <main>
+        @RenderBody()
+    </main>
+
+    <partial name="_Pie" />
+</body>
+
+</html>

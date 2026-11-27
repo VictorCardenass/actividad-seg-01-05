@@ -133,6 +133,40 @@ Actualmente las citas de la barbería se agendan por teléfono o WhatsApp, escri
 
 **Supuesto:** se asume que cada barbero atiende un solo cliente a la vez.
 
+## 14. Arquitectura, base de datos y API
+
+**Entorno:** ASP.NET Core MVC (.NET 10), Entity Framework Core con PostgreSQL (Npgsql). **Carpetas:** `Controllers/`, `Models/`, `Views/`, `Services/`, `Data/`, `Migrations/`. **Migraciones:** una por cambio del modelo, en `Migrations/`. **Servicios inyectados:** `ICatalogo` con su implementación `CatalogoEf`, registrada en `Program.cs`.
+
+**Manejo de errores:** `ErrorController` muestra una página para las rutas inexistentes (404) y otra para los fallos del servidor (500). Las rutas que empiezan por `/api` no usan páginas HTML. Las listas vacías muestran un aviso.
+
+**Modelo de datos:** COMPLETAR con el modelo final (Usuario, Barbero, Servicio, Reserva) y sus relaciones, tal como quedó en las migraciones.
+
+| Método | Ruta | Para qué sirve | Rol |
+|---|---|---|---|
+| GET | `/api/servicios` | Lista los servicios activos, ordenados por nombre. | Todos |
+| GET | `/api/servicios/{id}` | Devuelve un servicio activo. Responde 404 si no existe o está inactivo. | Todos |
+
+COMPLETAR: agregar aquí los endpoints de reservas cuando existan. La documentación OpenAPI está en `/openapi/v1.json`. La página `/catalogo` consume `/api/servicios` con `fetch` y muestra un mensaje si falla la carga o si no hay servicios.
+
+## 15. Despliegue y configuración
+
+| Elemento | Local | Producción |
+|---|---|---|
+| Dirección | `http://localhost:5172` | COMPLETAR: dirección pública de Azure App Service |
+| Base de datos | PostgreSQL en el computador del desarrollador | PostgreSQL en un servicio en la nube de Azure |
+| Cadena de conexión | Archivo local `appsettings.Development.json`, excluido de Git con `.gitignore`; la plantilla `appsettings.example.json` sí está en el repositorio | Cadena de conexión `BarberClub` en la configuración de la aplicación en Azure |
+| Publicación | No aplica | Automática con GitHub Actions al integrar a `main` |
+
+**Cómo ejecutar en local:** `dotnet restore`, `dotnet ef database update` y `dotnet run`. Ninguna clave ni cadena de conexión con contraseña se sube al repositorio.
+
+## 16. Aportes por integrante
+
+| Integrante | Aportes principales | Evidencia |
+|---|---|---|
+| Gledier Luis Ortiz Perez | Esqueleto ASP.NET, base de datos y migración inicial, API de servicios con OpenAPI, páginas de error. COMPLETAR: API de reservas, despliegue en Azure. | PR #9, #10, #11, #12 |
+| Víctor | COMPLETAR | COMPLETAR |
+| Jhorman | COMPLETAR | COMPLETAR |
+
 ## Historial de cambios
 
 | Fecha | Qué cambió | Quién |

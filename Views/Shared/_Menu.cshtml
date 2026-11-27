@@ -1,0 +1,22 @@
+﻿<nav>
+    <a class="marca" href="/servicios">Barber club</a>
+    <a href="/servicios">Servicios</a>
+    <a href="/catalogo">Catálogo</a>
+    @if (User.IsInRole("Administrador"))
+    {
+        <a href="/admin/servicios">Panel</a>
+    }
+    @if (User.Identity?.IsAuthenticated == true)
+    {
+        <span style="color: #f5efe0;">@User.Identity.Name (@User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value)</span>
+        <form asp-controller="Account" asp-action="Logout" method="post" style="margin: 0;">
+            <button type="submit" style="background: none; border: none; color: #f5efe0; cursor: pointer; font: inherit;">Cerrar sesión</button>
+        </form>
+    }
+    else
+    {
+        <a href="/login">Iniciar sesión</a>
+    }
+</nav>
+
+

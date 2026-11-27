@@ -9,6 +9,7 @@ public class BarberClubDbContext : DbContext
     public DbSet<Servicio> Servicios => Set<Servicio>();
     public DbSet<Barbero> Barberos => Set<Barbero>();
     public DbSet<Reserva> Reservas => Set<Reserva>();
+    public DbSet<Usuario> Usuarios => Set<Usuario>();
 
     protected override void OnModelCreating(ModelBuilder modelo)
     {
@@ -42,5 +43,10 @@ public class BarberClubDbContext : DbContext
             // La base de datos también impide repetir barbero + hora
             e.HasIndex(r => new { r.BarberoId, r.Inicio }).IsUnique();
         });
+        modelo.Entity<Usuario>().Property(u => u.Nombre).HasMaxLength(60);
+        modelo.Entity<Usuario>().Property(u => u.Correo).HasMaxLength(120);
+        modelo.Entity<Usuario>().Property(u => u.PasswordHash).HasMaxLength(200);
+        modelo.Entity<Usuario>().Property(u => u.Rol).HasConversion<string>().HasMaxLength(20);
+        modelo.Entity<Usuario>().HasIndex(u => u.Correo).IsUnique();
     }
 }

@@ -102,4 +102,68 @@ public async Task<IActionResult> Agenda(int? barberoId, DateTime? fecha)
 
     return View(vm);
 }
+
+[HttpGet("editar/{id:int}")]
+public async Task<IActionResult> Editar(int id)
+{
+    var r = await _reservas.ObtenerAsync(id);
+    if (r is null) return NotFound();
+
+    var vm = new ReservaEditarViewModel
+    {
+        Id = r.Id,
+        ServicioId = r.ServicioId,
+        BarberoId = r.BarberoId,
+        Inicio = r.Inicio,
+        NombreCliente = r.NombreCliente,
+        Telefono = r.Telefono
+    };
+    await CargarListas(vm);
+    return View(vm);
+}
+
+[HttpPost("editar/{id:int}")]
+[ValidateAntiForgeryToken]
+public async Task<IActionResult> Editar(int id, ReservaEditarViewModel vm)
+{
+    if (id != vm.Id) return BadRequest();
+
+    if (!ModelState.IsValid)
+    {
+        await CargarListas(vm);
+        return View(vm); // conserva lo que escribió el usuario
+    }
+
+    var datos = new Reserva
+    {
+        Id = id,
+        ServicioId = vm.ServicioId,
+        BarberoId = vm.BarberoId,
+        Inicio = vm.Inicio!.Value,
+        NombreCliente = vm.NombreCliente.Trim(),
+        Telefono = vm.Telefono.Trim()
+    };
+
+    var (ok, error) = await _reservas.ActualizarAsync(datos);
+    if (!ok)
+    {
+        ModelState.AddModelError(string.Empty, error!);
+        await CargarListas(vm);
+        return View(vm);
+    }
+
+    return RedirectToAction(nameof(Mias), new { telefono = vm.Telefono.Trim() });
+}
+
+[HttpPost("cancelar/{id:int}")]
+[ValidateAntiForgeryToken]
+public async Task<IActionResult> Cancelar(int id)
+{
+    var r = await _reservas.ObtenerAsync(id);
+    if (r is null) return NotFound();
+
+    var telefono = r.Telefono;
+    await _reservas.CancelarAsync(id);
+    return RedirectToAction(nameof(Mias), new { telefono });
+}
 }

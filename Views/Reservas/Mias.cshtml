@@ -28,6 +28,7 @@ else
                 <th>Servicio</th>
                 <th>Barbero</th>
                 <th>Estado</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -38,6 +39,13 @@ else
                     <td>@r.Servicio?.Nombre</td>
                     <td>@r.Barbero?.Nombre</td>
                     <td>@r.Estado</td>
+                    <td>
+    <a asp-action="Editar" asp-route-id="@r.Id">Editar</a>
+    <form asp-action="Cancelar" asp-route-id="@r.Id" method="post" style="display:inline"
+        onsubmit="return confirm('¿Cancelar esta reserva?');">
+        <button type="submit">Cancelar</button>
+    </form>
+</td>
                 </tr>
             }
         </tbody>

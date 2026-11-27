@@ -12,16 +12,18 @@ public class ServiciosApiController : ControllerBase
     }
 
     [HttpGet]
+    [ProducesResponseType(typeof(List<Servicio>), StatusCodes.Status200OK)]
     public ActionResult<List<Servicio>> Listar()
     {
         return catalogo.Listar();
     }
 
     [HttpGet("{id:int}")]
+    [ProducesResponseType(typeof(Servicio), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public ActionResult<Servicio> Obtener(int id)
     {
         var servicio = catalogo.Buscar(id);
-
         if (servicio is null || !servicio.Activo)
         {
             return NotFound();

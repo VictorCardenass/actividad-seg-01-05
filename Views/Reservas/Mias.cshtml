@@ -8,6 +8,11 @@
 
 <h1>Mis reservas</h1>
 
+@if (TempData["Error"] != null)
+{
+    <p style="color:red">@TempData["Error"]</p>
+}
+
 <form method="get" asp-action="Mias">
     <label for="telefono">Tu teléfono</label>
     <input id="telefono" name="telefono" value="@telefono" required maxlength="20" />
@@ -45,9 +50,14 @@ else
                     <td>
     <a asp-action="Editar" asp-route-id="@r.Id">Editar</a>
     <form asp-action="Cancelar" asp-route-id="@r.Id" method="post" style="display:inline"
-        onsubmit="return confirm('¿Cancelar esta reserva?');">
-        <button type="submit">Cancelar</button>
-    </form>
+      onsubmit="return confirm('¿Cancelar esta reserva?');">
+    <input name="telefonoConfirmacion"
+           type="tel"
+           placeholder="Confirma tu teléfono"
+           required
+           maxlength="20" />
+    <button type="submit">Cancelar</button>
+</form>
 </td>
                 </tr>
             }

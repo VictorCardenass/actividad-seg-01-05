@@ -51,8 +51,62 @@ La plantilla trae la cadena de conexión `BarberClub` apuntando a `localhost`, c
 |---|---|
 | `/servicios` | Lista de servicios |
 | `/catalogo` | Catálogo cargado con `fetch` desde la API |
+| `/reservas/nueva` | Formulario para crear una reserva |
+| `/reservas/mias` | Consulta de reservas por teléfono |
 | `/api/servicios` | API de servicios (JSON) |
 | `/openapi/v1.json` | Documentación OpenAPI |
+
+## API REST
+
+La API permite consultar los servicios y barberos disponibles, consultar horarios libres y gestionar reservas.
+
+La documentación OpenAPI está disponible en:
+
+`http://localhost:5172/openapi/v1.json`
+
+### Endpoints
+
+| Método | Ruta | Descripción |
+|---|---|---|
+| GET | `/api/servicios` | Lista los servicios activos. |
+| GET | `/api/servicios/{id}` | Consulta un servicio activo por su ID. |
+| GET | `/api/barberos` | Lista los barberos activos. |
+| GET | `/api/reservas/horarios-libres?barberoId=1&fecha=2026-11-30` | Consulta los horarios libres de un barbero en una fecha. |
+| POST | `/api/reservas` | Crea una reserva si el horario está disponible. |
+| DELETE | `/api/reservas/{id}?telefono=3001234567` | Cancela una reserva verificando el teléfono registrado. |
+
+### Códigos de respuesta
+
+- `200 OK`: consulta realizada correctamente.
+- `201 Created`: reserva creada correctamente.
+- `204 No Content`: reserva cancelada correctamente.
+- `400 Bad Request`: datos inválidos o parámetros requeridos ausentes.
+- `404 Not Found`: servicio o reserva no encontrados.
+- `409 Conflict`: horario ocupado o reserva en conflicto.
+
+### Ejemplo para crear una reserva
+
+Solicitud `POST /api/reservas` con contenido JSON:
+
+```json
+{
+  "servicioId": 1,
+  "barberoId": 1,
+  "inicio": "2026-11-30T10:00:00",
+  "nombreCliente": "Juan Pérez",
+  "telefono": "3001234567"
+}
+```
+
+La API responde con código `201 Created` y los datos de la reserva creada.
+
+### Ejemplo para cancelar una reserva
+
+Solicitud:
+
+`DELETE /api/reservas/1?telefono=3001234567`
+
+Si el teléfono coincide con el registrado, responde `204 No Content`.
 
 ## Usuarios de ejemplo
 

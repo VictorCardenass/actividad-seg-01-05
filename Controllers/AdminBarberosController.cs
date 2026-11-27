@@ -33,7 +33,12 @@ public class AdminBarberosController : Controller
             return View(modelo);
         }
 
-        db.Barberos.Add(new Barbero { Nombre = modelo.Nombre.Trim(), Activo = modelo.Activo });
+        db.Barberos.Add(new Barbero
+        {
+            Nombre = modelo.Nombre.Trim(),
+            Activo = modelo.Activo
+        });
+
         db.SaveChanges();
         return Redirect("/admin/barberos");
     }
@@ -48,18 +53,24 @@ public class AdminBarberosController : Controller
             return NotFound();
         }
 
-        return View(new BarberoFormulario { Id = barbero.Id, Nombre = barbero.Nombre, Activo = barbero.Activo });
+        return View(new BarberoFormulario
+        {
+            Id = barbero.Id,
+            Nombre = barbero.Nombre,
+            Activo = barbero.Activo
+        });
     }
 
     [HttpPost("editar/{id:int}")]
     [ValidateAntiForgeryToken]
     public IActionResult Editar(int id, BarberoFormulario modelo)
     {
+        if (id != modelo.Id) return BadRequest();
+
         if (!ModelState.IsValid)
         {
             return View(modelo);
         }
-
         var barbero = db.Barberos.Find(id);
 
         if (barbero is null)
@@ -69,7 +80,25 @@ public class AdminBarberosController : Controller
 
         barbero.Nombre = modelo.Nombre.Trim();
         barbero.Activo = modelo.Activo;
+
         db.SaveChanges();
+        return Redirect("/admin/barberos");
+    }
+
+    [HttpPost("estado/{id:int}")]
+    [ValidateAntiForgeryToken]
+    public IActionResult CambiarEstado(int id, bool activo)
+    {
+        var barbero = db.Barberos.Find(id);
+
+        if (barbero is null)
+        {
+            return NotFound();
+        }
+
+        barbero.Activo = activo;
+        db.SaveChanges();
+
         return Redirect("/admin/barberos");
     }
 }

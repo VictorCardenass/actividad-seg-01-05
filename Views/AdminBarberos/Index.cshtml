@@ -1,4 +1,4 @@
-﻿@model List<Barbero>
+@model List<Barbero>
 @{
     ViewData["Titulo"] = "Barberos";
 }
@@ -27,7 +27,22 @@ else
                 <tr style="border-bottom: 1px solid #ddd;">
                     <td>@barbero.Nombre</td>
                     <td>@(barbero.Activo ? "Activo" : "Inactivo")</td>
-                    <td><a href="/admin/barberos/editar/@barbero.Id">Editar</a></td>
+                    <td>
+                        <a href="/admin/barberos/editar/@barbero.Id">Editar</a>
+
+                        <form method="post"
+                              action="/admin/barberos/estado/@barbero.Id"
+                              style="display: inline;">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden"
+                                   name="activo"
+                                   value="@(barbero.Activo ? "false" : "true")" />
+
+                            <button type="submit">
+                                @(barbero.Activo ? "Desactivar" : "Activar")
+                            </button>
+                        </form>
+                    </td>
                 </tr>
             }
         </tbody>

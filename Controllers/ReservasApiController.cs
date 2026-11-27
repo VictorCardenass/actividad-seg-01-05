@@ -15,6 +15,7 @@ public class ReservasApiController : ControllerBase
     }
 
     [HttpGet("~/api/barberos")]
+    [ProducesResponseType(typeof(List<BarberoDto>), StatusCodes.Status200OK)]
     public async Task<ActionResult<List<BarberoDto>>> Barberos()
     {
         return await db.Barberos
@@ -25,6 +26,8 @@ public class ReservasApiController : ControllerBase
     }
 
     [HttpGet("horarios-libres")]
+    [ProducesResponseType(typeof(List<DateTime>), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<List<DateTime>>> HorariosLibres(int barberoId, DateTime? fecha)
     {
         if (barberoId <= 0 || fecha is null)
@@ -36,6 +39,9 @@ public class ReservasApiController : ControllerBase
     }
 
     [HttpPost]
+    [ProducesResponseType(typeof(ReservaRespuestaDto), StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status409Conflict)]
     public async Task<IActionResult> Crear(ReservaCrearDto datos)
     {
         var inicio = datos.Inicio!.Value;
@@ -86,6 +92,9 @@ public class ReservasApiController : ControllerBase
     }
 
     [HttpDelete("{id:int}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Cancelar(int id, string? telefono)
     {
         if (string.IsNullOrWhiteSpace(telefono))

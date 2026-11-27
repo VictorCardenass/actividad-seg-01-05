@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -82,6 +83,7 @@ public class ReservasController : Controller
             .ToListAsync();
     }
 
+    [Authorize(Roles = "Barbero,Administrador")]
     [HttpGet("agenda")]
 public async Task<IActionResult> Agenda(int? barberoId, DateTime? fecha)
 {

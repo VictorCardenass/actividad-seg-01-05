@@ -1,29 +1,20 @@
 ﻿@model List<Servicio>
-<!DOCTYPE html>
-<html lang="es">
+@{
+    ViewData["Titulo"] = "Servicios";
+}
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Servicios - Barber club</title>
-</head>
+<h1>Servicios</h1>
 
-<body>
-    <h1>Servicios</h1>
-
-    @if (Model.Count == 0)
-    {
-        <p>Por ahora no hay servicios disponibles.</p>
-    }
-    else
-    {
-        <ul>
-            @foreach (var servicio in Model)
-            {
-                <li>@servicio.Nombre - $@servicio.Precio - @servicio.Duracion min</li>
-            }
-        </ul>
-    }
-</body>
-
-</html>
+@if (Model.Count == 0)
+{
+    <partial name="_AvisoVacio" model='"Por ahora no hay servicios disponibles."' />
+}
+else
+{
+    <ul>
+        @foreach (var servicio in Model)
+        {
+            <li>@servicio.Nombre - $@servicio.Precio - @servicio.Duracion min</li>
+        }
+    </ul>
+}

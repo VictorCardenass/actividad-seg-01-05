@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BarberClub.Migrations
 {
     [DbContext(typeof(BarberClubDbContext))]
-    [Migration("20261127012138_Reservas")]
+    [Migration("20261127023730_Reservas")]
     partial class Reservas
     {
         /// <inheritdoc />
@@ -82,7 +82,7 @@ namespace BarberClub.Migrations
                         .HasColumnType("character varying(20)");
 
                     b.Property<DateTime>("Inicio")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("NombreCliente")
                         .IsRequired()

@@ -79,7 +79,7 @@ namespace BarberClub.Migrations
                         .HasColumnType("character varying(20)");
 
                     b.Property<DateTime>("Inicio")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("NombreCliente")
                         .IsRequired()

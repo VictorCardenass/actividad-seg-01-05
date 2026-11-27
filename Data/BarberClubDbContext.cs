@@ -31,6 +31,7 @@ public class BarberClubDbContext : DbContext
 
         modelo.Entity<Reserva>(e =>
         {
+            e.Property(r => r.Inicio).HasColumnType("timestamp without time zone");  
             e.Property(r => r.NombreCliente).HasMaxLength(100).IsRequired();
             e.Property(r => r.Telefono).HasMaxLength(20).IsRequired();
             e.Property(r => r.Estado).HasMaxLength(20).IsRequired();

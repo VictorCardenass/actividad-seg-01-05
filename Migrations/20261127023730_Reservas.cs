@@ -36,7 +36,7 @@ namespace BarberClub.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     ServicioId = table.Column<int>(type: "integer", nullable: false),
                     BarberoId = table.Column<int>(type: "integer", nullable: false),
-                    Inicio = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Inicio = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     NombreCliente = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     Telefono = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
                     Estado = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false)

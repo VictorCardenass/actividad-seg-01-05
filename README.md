@@ -1,4 +1,4 @@
-﻿# Barber club
+# Barber club
 
 Plataforma web para que los clientes de una barbería reserven su cita en línea eligiendo servicio, barbero, fecha y hora. Los barberos consultan su agenda y el administrador gestiona servicios, barberos y reservas. Proyecto de Programación Web (IF2003), grupo 603. Equipo 05.
 
@@ -56,13 +56,13 @@ La plantilla trae la cadena de conexión `BarberClub` apuntando a `localhost`, c
 
 ## Usuarios de ejemplo
 
-COMPLETAR cuando exista el inicio de sesión (un usuario por rol).
+Usuarios de demostración que se crean automáticamente al arrancar la aplicación. Son solo para probar los roles; no deben usarse en un entorno real.
 
 | Rol | Correo | Contraseña |
 |---|---|---|
-| Cliente | COMPLETAR | COMPLETAR |
-| Barbero | COMPLETAR | COMPLETAR |
-| Administrador | COMPLETAR | COMPLETAR |
+| Cliente | cliente@barberclub.com | Cliente123! |
+| Barbero | barbero@barberclub.com | Barbero123! |
+| Administrador | admin@barberclub.com | Admin123! |
 
 ## Configuración por entornos
 

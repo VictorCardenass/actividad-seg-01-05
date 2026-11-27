@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -70,7 +71,7 @@ public class ReservasController : Controller
     // Llena los desplegables de servicio y barbero
     private async Task CargarListas(ReservaNuevaViewModel vm)
     {
-        vm.Servicios = await _db.Servicios
+        vm.Servicios = await _db.Servicios.Where(s => s.Activo)
             .OrderBy(s => s.Nombre)
             .Select(s => new SelectListItem(s.Nombre, s.Id.ToString()))
             .ToListAsync();
@@ -82,6 +83,7 @@ public class ReservasController : Controller
             .ToListAsync();
     }
 
+    [Authorize(Roles = "Barbero,Administrador")]
     [HttpGet("agenda")]
 public async Task<IActionResult> Agenda(int? barberoId, DateTime? fecha)
 {

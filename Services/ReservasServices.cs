@@ -13,16 +13,25 @@ public class ReservasService : IReservas
 
     public ReservasService(BarberClubDbContext db) => _db = db;
 
+    // Los cupos son de una hora, en punto, dentro del horario de atención
+    private static bool HoraValida(DateTime inicio) =>
+        inicio.TimeOfDay.Ticks % Duracion.Ticks == 0
+        && inicio.TimeOfDay >= Apertura
+        && inicio.TimeOfDay + Duracion <= Cierre;
+
     public async Task<(bool Ok, string? Error, Reserva? Reserva)> CrearAsync(Reserva reserva)
     {
         if (reserva.Inicio <= DateTime.Now)
             return (false, "La fecha y hora deben ser futuras.", null);
 
+        if (!HoraValida(reserva.Inicio))
+            return (false, "Elige una hora en punto, entre 9:00 y 17:00.", null);
+
         var barberoOk = await _db.Barberos.AnyAsync(b => b.Id == reserva.BarberoId && b.Activo);
         if (!barberoOk)
             return (false, "El barbero seleccionado no está disponible.", null);
 
-        var servicioOk = await _db.Servicios.AnyAsync(s => s.Id == reserva.ServicioId);
+        var servicioOk = await _db.Servicios.AnyAsync(s => s.Id == reserva.ServicioId && s.Activo);
         if (!servicioOk)
             return (false, "El servicio seleccionado no existe.", null);
 
@@ -116,11 +125,14 @@ public async Task<(bool Ok, string? Error)> ActualizarAsync(Reserva datos)
     if (datos.Inicio <= DateTime.Now)
         return (false, "La fecha y hora deben ser futuras.");
 
+    if (!HoraValida(datos.Inicio))
+        return (false, "Elige una hora en punto, entre 9:00 y 17:00.");
+
     var barberoOk = await _db.Barberos.AnyAsync(b => b.Id == datos.BarberoId && b.Activo);
     if (!barberoOk)
         return (false, "El barbero seleccionado no está disponible.");
 
-    var servicioOk = await _db.Servicios.AnyAsync(s => s.Id == datos.ServicioId);
+    var servicioOk = await _db.Servicios.AnyAsync(s => s.Id == datos.ServicioId && s.Activo);
     if (!servicioOk)
         return (false, "El servicio seleccionado no existe.");
 

@@ -1,0 +1,24 @@
+﻿@model LoginViewModel
+@{
+    ViewData["Titulo"] = "Iniciar sesión";
+}
+
+<h1>Iniciar sesión</h1>
+
+<form asp-controller="Account" asp-action="Login" asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post" style="max-width: 24rem;">
+    <div asp-validation-summary="ModelOnly" class="aviso"></div>
+
+    <p>
+        <label asp-for="Correo">Correo</label><br>
+        <input asp-for="Correo" type="email" required style="width: 100%; padding: 0.5rem; box-sizing: border-box;">
+        <span asp-validation-for="Correo"></span>
+    </p>
+
+    <p>
+        <label asp-for="Password">Contraseña</label><br>
+        <input asp-for="Password" required style="width: 100%; padding: 0.5rem; box-sizing: border-box;">
+        <span asp-validation-for="Password"></span>
+    </p>
+
+    <button type="submit" style="background: #111111; color: #c9a24b; border: none; padding: 0.6rem 1.2rem; cursor: pointer;">Entrar</button>
+</form>

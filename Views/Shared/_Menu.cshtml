@@ -2,6 +2,10 @@
     <a class="marca" href="/servicios">Barber club</a>
     <a href="/servicios">Servicios</a>
     <a href="/catalogo">Catálogo</a>
+    @if (User.IsInRole("Administrador"))
+    {
+        <a href="/admin/servicios">Panel</a>
+    }
     @if (User.Identity?.IsAuthenticated == true)
     {
         <span style="color: #f5efe0;">@User.Identity.Name (@User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value)</span>
@@ -14,4 +18,5 @@
         <a href="/login">Iniciar sesión</a>
     }
 </nav>
+
 

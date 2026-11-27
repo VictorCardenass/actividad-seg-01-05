@@ -1,0 +1,31 @@
+﻿@model ServicioFormulario
+@{
+    ViewData["Titulo"] = "Nuevo servicio";
+}
+
+<h1>Nuevo servicio</h1>
+
+<form method="post" style="max-width: 24rem;">
+    <div asp-validation-summary="ModelOnly" class="aviso"></div>
+
+    <p>
+        <label asp-for="Nombre">Nombre</label><br>
+        <input asp-for="Nombre" required maxlength="60" style="width: 100%; padding: 0.5rem; box-sizing: border-box;">
+        <span asp-validation-for="Nombre" style="color: #a00;"></span>
+    </p>
+
+    <p>
+        <label asp-for="Precio">Precio</label><br>
+        <input asp-for="Precio" type="number" step="0.01" min="1000" max="1000000" required style="width: 100%; padding: 0.5rem; box-sizing: border-box;">
+        <span asp-validation-for="Precio" style="color: #a00;"></span>
+    </p>
+
+    <p>
+        <label asp-for="Duracion">Duración (minutos)</label><br>
+        <input asp-for="Duracion" type="number" min="5" max="240" required style="width: 100%; padding: 0.5rem; box-sizing: border-box;">
+        <span asp-validation-for="Duracion" style="color: #a00;"></span>
+    </p>
+
+    <button type="submit" style="background: #111111; color: #c9a24b; border: none; padding: 0.6rem 1.2rem; cursor: pointer;">Guardar</button>
+    <a href="/admin/servicios">Cancelar</a>
+</form>

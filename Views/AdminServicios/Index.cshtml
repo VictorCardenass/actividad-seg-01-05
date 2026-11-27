@@ -1,0 +1,45 @@
+﻿@model List<Servicio>
+@{
+    ViewData["Titulo"] = "Panel de servicios";
+}
+
+<h1>Panel de servicios</h1>
+
+<p><a href="/admin/servicios/crear">Nuevo servicio</a></p>
+
+@if (Model.Count == 0)
+{
+    <partial name="_AvisoVacio" model='"Todavía no hay servicios. Crea el primero."' />
+}
+else
+{
+    <table style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr style="text-align: left; border-bottom: 2px solid #c9a24b;">
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Duración</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var servicio in Model)
+            {
+                <tr style="border-bottom: 1px solid #ddd;">
+                    <td>@servicio.Nombre</td>
+                    <td>$@servicio.Precio.ToString("N0")</td>
+                    <td>@servicio.Duracion min</td>
+                    <td>@(servicio.Activo ? "Activo" : "Desactivado")</td>
+                    <td>
+                        <a href="/admin/servicios/editar/@servicio.Id">Editar</a>
+                        <form asp-controller="AdminServicios" asp-action="CambiarEstado" asp-route-id="@servicio.Id" method="post" style="display: inline;">
+                            <input type="hidden" name="activo" value="@(servicio.Activo ? "false" : "true")">
+                            <button type="submit">@(servicio.Activo ? "Desactivar" : "Activar")</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

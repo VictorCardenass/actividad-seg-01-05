@@ -4,6 +4,10 @@
     <a href="/catalogo">Catálogo</a>
     <a href="/reservas/nueva">Reservar</a>
     <a href="/reservas/mias">Mis reservas</a>
+    @if (User.IsInRole("Barbero") || User.IsInRole("Administrador"))
+    {
+        <a href="/reservas/agenda">Agenda</a>
+    }
     @if (User.IsInRole("Administrador"))
     {
         <a href="/admin/servicios">Servicios (admin)</a>

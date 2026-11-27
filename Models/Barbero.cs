@@ -1,6 +1,5 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace BarberClub.Models;
 
 public class Barbero
 {

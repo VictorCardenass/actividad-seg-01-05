@@ -1,7 +1,5 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace BarberClub.Models;
-
 public class Reserva
 {
     public const string EstadoActiva = "Activa";

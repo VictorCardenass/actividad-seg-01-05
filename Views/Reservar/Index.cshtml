@@ -1,0 +1,204 @@
+﻿@{
+    ViewData["Titulo"] = "Reserva en línea";
+}
+
+<h1>Reserva en línea</h1>
+
+<p id="estado" class="aviso">Cargando servicios y barberos...</p>
+
+<form id="formulario" hidden>
+    <p><label>Servicio<br><select id="servicio" required></select></label></p>
+    <p><label>Barbero<br><select id="barbero" required></select></label></p>
+    <p><label>Fecha<br><input type="date" id="fecha" required></label></p>
+    <p><label>Hora<br><select id="hora" required></select></label></p>
+    <p id="sin-horarios" class="aviso" hidden>No hay horarios libres ese día. Prueba con otra fecha u otro barbero.</p>
+    <p><label>Nombre<br><input id="nombre" required minlength="2" maxlength="100"></label></p>
+    <p><label>Teléfono<br><input id="telefono" type="tel" required maxlength="20" pattern="[0-9+ \-]{7,20}" title="Solo números, + , espacios o guiones (7 a 20 caracteres)"></label></p>
+    <button type="submit">Reservar</button>
+</form>
+
+<p id="resultado" class="aviso" hidden></p>
+<button id="cancelar" type="button" hidden>Cancelar esta reserva</button>
+
+<script>
+    const estado = document.getElementById("estado");
+    const formulario = document.getElementById("formulario");
+    const servicio = document.getElementById("servicio");
+    const barbero = document.getElementById("barbero");
+    const fecha = document.getElementById("fecha");
+    const hora = document.getElementById("hora");
+    const sinHorarios = document.getElementById("sin-horarios");
+    const nombre = document.getElementById("nombre");
+    const telefono = document.getElementById("telefono");
+    const resultado = document.getElementById("resultado");
+    const botonCancelar = document.getElementById("cancelar");
+    let ultimaReserva = null;
+
+    function mostrar(elemento, texto) {
+        elemento.textContent = texto;
+        elemento.hidden = false;
+    }
+
+    function llenarSelect(select, items, textoInicial) {
+        select.replaceChildren();
+        const inicial = document.createElement("option");
+        inicial.value = "";
+        inicial.textContent = textoInicial;
+        select.appendChild(inicial);
+
+        for (const item of items) {
+            const opcion = document.createElement("option");
+            opcion.value = item.valor;
+            opcion.textContent = item.texto;
+            select.appendChild(opcion);
+        }
+    }
+
+    async function mensajeDeError(respuesta) {
+        try {
+            const datos = await respuesta.json();
+            if (datos.error) {
+                return datos.error;
+            }
+            if (datos.errors) {
+                return Object.values(datos.errors).flat().join(" ");
+            }
+        } catch (e) {
+            // la respuesta no era JSON
+        }
+        return "El servidor respondió " + respuesta.status;
+    }
+
+    async function cargarInicio() {
+        try {
+            const [rs, rb] = await Promise.all([fetch("/api/servicios"), fetch("/api/barberos")]);
+
+            if (!rs.ok || !rb.ok) {
+                throw new Error("Respuestas " + rs.status + " y " + rb.status);
+            }
+
+            const servicios = await rs.json();
+            const barberos = await rb.json();
+
+            if (servicios.length === 0 || barberos.length === 0) {
+                estado.textContent = "Por ahora no hay servicios o barberos disponibles para reservar.";
+                return;
+            }
+
+            llenarSelect(servicio, servicios.map(s => ({
+                valor: s.id,
+                texto: s.nombre + " - $" + s.precio.toLocaleString("es-CO")
+            })), "-- Elige un servicio --");
+            llenarSelect(barbero, barberos.map(b => ({ valor: b.id, texto: b.nombre })), "-- Elige un barbero --");
+            llenarSelect(hora, [], "-- Elige fecha y barbero --");
+
+            fecha.min = new Date().toLocaleDateString("en-CA");
+            estado.hidden = true;
+            formulario.hidden = false;
+        } catch (error) {
+            estado.textContent = "No se pudo cargar el formulario. Intenta de nuevo más tarde.";
+            console.error(error);
+        }
+    }
+
+    async function cargarHorarios() {
+        sinHorarios.hidden = true;
+        llenarSelect(hora, [], "-- Elige fecha y barbero --");
+
+        if (!barbero.value || !fecha.value) {
+            return;
+        }
+
+        try {
+            const url = "/api/reservas/horarios-libres?barberoId=" + barbero.value + "&fecha=" + fecha.value;
+            const respuesta = await fetch(url);
+
+            if (!respuesta.ok) {
+                throw new Error(await mensajeDeError(respuesta));
+            }
+
+            const horarios = await respuesta.json();
+
+            if (horarios.length === 0) {
+                sinHorarios.hidden = false;
+                return;
+            }
+
+            llenarSelect(hora, horarios.map(h => ({
+                valor: h,
+                texto: new Date(h).toLocaleTimeString("es-CO", { hour: "2-digit", minute: "2-digit" })
+            })), "-- Elige una hora --");
+        } catch (error) {
+            mostrar(resultado, "No se pudieron cargar los horarios. Intenta de nuevo.");
+            console.error(error);
+        }
+    }
+
+    barbero.addEventListener("change", cargarHorarios);
+    fecha.addEventListener("change", cargarHorarios);
+
+    formulario.addEventListener("submit", async (evento) => {
+        evento.preventDefault();
+        resultado.hidden = true;
+        botonCancelar.hidden = true;
+
+        const cuerpo = {
+            servicioId: Number(servicio.value),
+            barberoId: Number(barbero.value),
+            inicio: hora.value,
+            nombreCliente: nombre.value.trim(),
+            telefono: telefono.value.trim()
+        };
+
+        try {
+            const respuesta = await fetch("/api/reservas", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(cuerpo)
+            });
+
+            if (respuesta.status === 201) {
+                ultimaReserva = await respuesta.json();
+                await cargarHorarios();
+                mostrar(resultado, "Reserva creada (número " + ultimaReserva.id + ").");
+                botonCancelar.hidden = false;
+                return;
+            }
+
+            const mensaje = await mensajeDeError(respuesta);
+            if (respuesta.status === 409) {
+                await cargarHorarios();
+            }
+            mostrar(resultado, mensaje);
+        } catch (error) {
+            mostrar(resultado, "No se pudo conectar con el servidor. Intenta de nuevo.");
+            console.error(error);
+        }
+    });
+
+    botonCancelar.addEventListener("click", async () => {
+        if (!ultimaReserva) {
+            return;
+        }
+
+        try {
+            const url = "/api/reservas/" + ultimaReserva.id + "?telefono=" + encodeURIComponent(ultimaReserva.telefono);
+            const respuesta = await fetch(url, { method: "DELETE" });
+
+            if (respuesta.status === 204) {
+                ultimaReserva = null;
+                botonCancelar.hidden = true;
+                await cargarHorarios();
+                mostrar(resultado, "Reserva cancelada. El horario quedó libre otra vez.");
+                return;
+            }
+
+            mostrar(resultado, await mensajeDeError(respuesta));
+        } catch (error) {
+            mostrar(resultado, "No se pudo conectar con el servidor. Intenta de nuevo.");
+            console.error(error);
+        }
+    });
+
+    cargarInicio();
+</script>

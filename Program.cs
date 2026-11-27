@@ -6,6 +6,7 @@ builder.Services.AddOpenApi();
 builder.Services.AddDbContext<BarberClubDbContext>(opciones =>
     opciones.UseNpgsql(builder.Configuration.GetConnectionString("BarberClub")));
 builder.Services.AddScoped<ICatalogo, CatalogoEf>();
+builder.Services.AddScoped<IReservas, ReservasService>();
 
 var app = builder.Build();
 

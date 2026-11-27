@@ -4,7 +4,9 @@
     <a href="/catalogo">Catálogo</a>
     @if (User.IsInRole("Administrador"))
     {
-        <a href="/admin/servicios">Panel</a>
+        <a href="/admin/servicios">Servicios (admin)</a>
+        <a href="/admin/barberos">Barberos</a>
+        <a href="/admin/reservas">Reservas</a>
     }
     @if (User.Identity?.IsAuthenticated == true)
     {
@@ -18,5 +20,7 @@
         <a href="/login">Iniciar sesión</a>
     }
 </nav>
+
+
 
 

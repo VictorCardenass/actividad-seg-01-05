@@ -1,0 +1,39 @@
+﻿@model List<Reserva>
+@{
+    ViewData["Titulo"] = "Todas las reservas";
+}
+
+<h1>Todas las reservas</h1>
+
+@if (Model.Count == 0)
+{
+    <partial name="_AvisoVacio" model='"Todavía no hay reservas."' />
+}
+else
+{
+    <table style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr style="text-align: left; border-bottom: 2px solid #c9a24b;">
+                <th>Fecha y hora</th>
+                <th>Cliente</th>
+                <th>Teléfono</th>
+                <th>Servicio</th>
+                <th>Barbero</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var reserva in Model)
+            {
+                <tr style="border-bottom: 1px solid #ddd;">
+                    <td>@reserva.Inicio.ToString("dd/MM/yyyy HH:mm")</td>
+                    <td>@reserva.NombreCliente</td>
+                    <td>@reserva.Telefono</td>
+                    <td>@reserva.Servicio?.Nombre</td>
+                    <td>@reserva.Barbero?.Nombre</td>
+                    <td>@reserva.Estado</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

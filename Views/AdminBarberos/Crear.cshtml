@@ -1,0 +1,23 @@
+﻿@model BarberoFormulario
+@{
+    ViewData["Titulo"] = "Nuevo barbero";
+}
+
+<h1>Nuevo barbero</h1>
+
+<form method="post" style="max-width: 24rem;">
+    <div asp-validation-summary="ModelOnly" class="aviso"></div>
+
+    <p>
+        <label asp-for="Nombre">Nombre</label><br>
+        <input asp-for="Nombre" required maxlength="80" style="width: 100%; padding: 0.5rem; box-sizing: border-box;">
+        <span asp-validation-for="Nombre" style="color: #a00;"></span>
+    </p>
+
+    <p>
+        <label><input asp-for="Activo"> Activo</label>
+    </p>
+
+    <button type="submit" style="background: #111111; color: #c9a24b; border: none; padding: 0.6rem 1.2rem; cursor: pointer;">Guardar</button>
+    <a href="/admin/barberos">Cancelar</a>
+</form>

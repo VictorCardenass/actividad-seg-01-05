@@ -98,4 +98,53 @@ public class ReservasService : IReservas
         }
         return libres;
     }
+
+    public async Task<Reserva?> ObtenerAsync(int id)
+{
+    return await _db.Reservas
+        .Include(r => r.Servicio)
+        .Include(r => r.Barbero)
+        .FirstOrDefaultAsync(r => r.Id == id);
+}
+
+public async Task<(bool Ok, string? Error)> ActualizarAsync(Reserva datos)
+{
+    var reserva = await _db.Reservas.FindAsync(datos.Id);
+    if (reserva is null)
+        return (false, "La reserva no existe.");
+
+    if (datos.Inicio <= DateTime.Now)
+        return (false, "La fecha y hora deben ser futuras.");
+
+    var barberoOk = await _db.Barberos.AnyAsync(b => b.Id == datos.BarberoId && b.Activo);
+    if (!barberoOk)
+        return (false, "El barbero seleccionado no está disponible.");
+
+    var servicioOk = await _db.Servicios.AnyAsync(s => s.Id == datos.ServicioId);
+    if (!servicioOk)
+        return (false, "El servicio seleccionado no existe.");
+
+    // La misma regla que al crear, pero ignorando la propia reserva
+    var ocupado = await _db.Reservas.AnyAsync(r =>
+        r.Id != datos.Id && r.BarberoId == datos.BarberoId && r.Inicio == datos.Inicio);
+    if (ocupado)
+        return (false, "Ese barbero ya tiene una reserva a esa hora. Elige otro horario.");
+
+    reserva.ServicioId = datos.ServicioId;
+    reserva.BarberoId = datos.BarberoId;
+    reserva.Inicio = datos.Inicio;
+    reserva.NombreCliente = datos.NombreCliente;
+    reserva.Telefono = datos.Telefono;
+
+    try
+    {
+        await _db.SaveChangesAsync();
+    }
+    catch (DbUpdateException)
+    {
+        return (false, "Ese horario acaba de ser reservado. Elige otro.");
+    }
+
+    return (true, null);
+}
 }

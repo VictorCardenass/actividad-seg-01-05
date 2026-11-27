@@ -8,4 +8,6 @@ public interface IReservas
     Task<List<Reserva>> ListarMiasAsync(string telefono);
     Task<bool> CancelarAsync(int id);
     Task<List<DateTime>> HorariosLibresAsync(int barberoId, DateTime fecha);
+    Task<Reserva?> ObtenerAsync(int id);
+    Task<(bool Ok, string? Error)> ActualizarAsync(Reserva datos);
 }

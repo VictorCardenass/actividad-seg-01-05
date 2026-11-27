@@ -1,0 +1,45 @@
+@model ReservaEditarViewModel
+
+<h1>Editar reserva</h1>
+
+<form asp-action="Editar" asp-route-id="@Model.Id" method="post">
+    <input type="hidden" asp-for="Id" />
+    <div asp-validation-summary="ModelOnly" style="color:red"></div>
+
+    <div>
+        <label asp-for="ServicioId"></label>
+        <select asp-for="ServicioId" asp-items="Model.Servicios" required>
+            <option value="">-- Elige un servicio --</option>
+        </select>
+        <span asp-validation-for="ServicioId" style="color:red"></span>
+    </div>
+
+    <div>
+        <label asp-for="BarberoId"></label>
+        <select asp-for="BarberoId" asp-items="Model.Barberos" required>
+            <option value="">-- Elige un barbero --</option>
+        </select>
+        <span asp-validation-for="BarberoId" style="color:red"></span>
+    </div>
+
+    <div>
+        <label asp-for="Inicio"></label>
+        <input asp-for="Inicio" type="datetime-local" required />
+        <span asp-validation-for="Inicio" style="color:red"></span>
+    </div>
+
+    <div>
+        <label asp-for="NombreCliente"></label>
+        <input asp-for="NombreCliente" required maxlength="100" />
+        <span asp-validation-for="NombreCliente" style="color:red"></span>
+    </div>
+
+    <div>
+        <label asp-for="Telefono"></label>
+        <input asp-for="Telefono" type="tel" required maxlength="20" />
+        <span asp-validation-for="Telefono" style="color:red"></span>
+    </div>
+
+    <button type="submit">Guardar cambios</button>
+    <a asp-action="Mias" asp-route-telefono="@Model.Telefono">Volver</a>
+</form>

@@ -1,5 +1,4 @@
-using BarberClub.Data;
-using BarberClub.Models;
+
 using Microsoft.EntityFrameworkCore;
 
 

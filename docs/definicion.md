@@ -1,4 +1,4 @@
-﻿# Definición del proyecto: Barber club
+# Definición del proyecto: Barber club
 
 Programación Web (IF2003), grupo 603. Equipo 05.
 
@@ -20,7 +20,7 @@ Actualmente las citas de la barbería se agendan por teléfono o WhatsApp, escri
 ## 4. Stakeholders, actores y roles
 
 - **Cliente** (rol): consulta servicios y disponibilidad, reserva una cita indicando su nombre y teléfono, y consulta y cancela sus reservas con ese teléfono.
-- **Barbero** (rol): consulta su agenda de un día.
+- **Barbero** (rol): consulta la agenda de un día. Modificado respecto al diseño inicial: el barbero no está enlazado a su cuenta de usuario, así que elige el barbero y la fecha y no se limita a su propia agenda. Solo acceden los roles Barbero y Administrador.
 - **Administrador** (rol): gestiona los servicios y los barberos, y ve todas las reservas del negocio.
 - **Dueño de la barbería** (stakeholder): no necesariamente usa la plataforma a diario, pero es el dueño del negocio que se beneficia de organizar las citas.
 - **Login:** el administrador y el barbero inician sesión con correo y contraseña. Los clientes no necesitan cuenta para reservar.
@@ -34,7 +34,7 @@ Actualmente las citas de la barbería se agendan por teléfono o WhatsApp, escri
 ## 6. Funcionalidades
 
  - **Cliente:** ver servicios y su disponibilidad, reservar una cita eligiendo servicio, barbero, fecha y hora, y ver, editar y cancelar sus reservas con su teléfono.
-- **Barbero:** ver la agenda de un día.
+- **Barbero:** ver la agenda de un día, eligiendo el barbero y la fecha. Modificado respecto al diseño inicial: la agenda no se limita al barbero que inició sesión, porque el barbero no está enlazado a su cuenta de usuario. Solo acceden los roles Barbero y Administrador.
 - **Administrador:** gestionar servicios y barberos, y ver todas las reservas del negocio.
 
 ## 7. Requerimientos funcionales
@@ -84,7 +84,7 @@ Actualmente las citas de la barbería se agendan por teléfono o WhatsApp, escri
 | Servicios y catálogo | Público | Ver los servicios ofrecidos. |
 | Nueva reserva y reserva en línea | Público | Elegir servicio, barbero, fecha y hora, y confirmar. |
 | Mis reservas | Público | Ver, editar y cancelar las reservas de un teléfono. |
-| Agenda del barbero | Barbero | Ver las citas de un día. |
+| Agenda del barbero | Barbero y Administrador | Ver las citas de un día de cualquier barbero. Requiere iniciar sesión. |
 | Paneles de administración | Administrador | Gestionar servicios y barberos, y ver todas las reservas. |
 
 **Flujo del cliente:** servicios, nueva reserva, mis reservas.
@@ -126,7 +126,7 @@ Actualmente las citas de la barbería se agendan por teléfono o WhatsApp, escri
 
 **Historia 1:** como cliente, quiero ver qué horarios están disponibles para un servicio, para reservar sin llamar a la barbería.
 
-**Historia 2:** como barbero, quiero ver mi agenda del día, para saber qué citas tengo sin depender de que alguien más me avise.
+**Historia 2:** como barbero, quiero ver mi agenda del día, para saber qué citas tengo sin depender de que alguien más me avise. En la plataforma final el barbero elige el barbero y la fecha en la agenda, porque no está enlazado a su usuario.
 
 **Historia 3:** como administrador, quiero ver todas las reservas del negocio, para tener control sobre la operación diaria.
 

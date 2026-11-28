@@ -126,6 +126,19 @@ Usuarios de demostración que se crean automáticamente al arrancar la aplicaci�
 | Cadena de conexión | `appsettings.Development.json` (excluido de Git) | Configuración de la aplicación en Azure, con el nombre `BarberClub` |
 | Publicación | No aplica | Automática al integrar a `main` |
 
+## Diseño adaptable (Responsive)
+
+Se comprobó la adaptación de la interfaz en tres tamaños de pantalla utilizando la vista responsive del navegador.
+
+| Dispositivo | Resolución | Resultado |
+|---|---|---|
+| Móvil | 360 × 646 px | Correcto. El menú se distribuye en varias líneas y el contenido cabe en la pantalla. |
+| Tablet | 768 × 1024 px | Correcto. El menú y el contenido se adaptan al ancho disponible. |
+| Escritorio | 1366 × 768 px | Correcto. La interfaz se visualiza correctamente en pantalla grande. |
+
+Las pruebas confirmaron que el menú de navegación y el contenido de la página se adaptan a los distintos tamaños de pantalla sin desbordamiento horizontal.
+
+
 ## Documentación del proyecto
 
 Ver [docs/definicion.md](docs/definicion.md) para el documento completo de definición, con el mockup en `docs/mockup/` y la presentación en `docs/presentacion/`.
